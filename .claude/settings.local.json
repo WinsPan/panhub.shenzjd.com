@@ -40,7 +40,15 @@
       "Bash(curl -sL -o xunlei.png \"https://pan.xunlei.com/icon.png\")",
       "Bash(python3 -c ' *)",
       "Bash(vitest run *)",
-      "Bash(pnpm vitest *)"
+      "Bash(pnpm vitest *)",
+      "Bash(npx *)",
+      "Bash(brew list *)",
+      "Bash(pip3 install *)",
+      "Bash(python3 *)",
+      "Read(//private/tmp/**)",
+      "Bash(npm init *)",
+      "Bash(npm install *)",
+      "Bash(node -e ' *)"
     ]
   }
 }
