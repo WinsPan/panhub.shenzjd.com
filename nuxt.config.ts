@@ -4,6 +4,9 @@ import channelsConfig from "./config/channels.json";
 export default defineNuxtConfig({
   compatibilityDate: "2025-07-15",
   devtools: { enabled: false },
+  devServer: {
+    port: 3001,
+  },
   app: {
     head: {
       htmlAttrs: { lang: "zh-CN" },
