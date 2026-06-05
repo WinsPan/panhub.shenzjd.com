@@ -62,6 +62,11 @@ jobs:
             sudo docker stop "$CONTAINER" || true
             sudo docker rm "$CONTAINER" || true
 
+            echo "=== 准备数据目录 ==="
+            DATA_DIR="/opt/1panel/apps/openresty/openresty/www/sites/panhub.shenzjd.com/index"
+            sudo mkdir -p "$DATA_DIR"
+            sudo chmod 777 "$DATA_DIR"
+
             echo "=== 启动新容器 ==="
             sudo docker run -d \
               --name "$CONTAINER" \
