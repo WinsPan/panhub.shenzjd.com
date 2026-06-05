@@ -26,6 +26,9 @@ jobs:
           script: |
             set -e
 
+            echo "=== 登录 GHCR ==="
+            echo "${{ secrets.GITHUB_TOKEN }}" | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
             echo "=== 拉取最新镜像 ==="
             docker pull ghcr.io/${{ github.repository }}:latest
 

@@ -29,9 +29,6 @@ jobs:
             runner: ubuntu-latest
           - platform: linux/arm64
             runner: ubuntu-24.04-arm
-    env:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -45,13 +42,6 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        if: ${{ env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != '' }}
-        with:
-          username: ${{ env.DOCKERHUB_USERNAME }}
-          password: ${{ env.DOCKERHUB_TOKEN }}
 
       - name: Extract metadata (tags, labels)
         id: meta
@@ -67,18 +57,10 @@ jobs:
         id: tags
         run: |
           VER=$(node -p "require('./package.json').version")
-          echo "version=$VER" >> $GITHUB_OUTPUT
-          REPO="${{ github.event.repository.name }}"
           {
             echo "ghcr.io/${{ github.repository }}:$VER"
             echo "ghcr.io/${{ github.repository }}:latest"
             echo "${{ steps.meta.outputs.tags }}"
-            if [ -n "$DOCKERHUB_USERNAME" ]; then
-              echo "docker.io/$DOCKERHUB_USERNAME/$REPO:$VER"
-              echo "docker.io/$DOCKERHUB_USERNAME/$REPO:latest"
-              echo "docker.io/$DOCKERHUB_USERNAME/$REPO:${{ github.ref_name }}"
-              echo "docker.io/$DOCKERHUB_USERNAME/$REPO:sha-${{ github.sha }}"
-            fi
           } | grep -v '^$' > tags.txt
           echo "list<<EOF" >> $GITHUB_OUTPUT
           cat tags.txt >> $GITHUB_OUTPUT
@@ -114,9 +96,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     timeout-minutes: 5
-    env:
-      DOCKERHUB_USERNAME: ${{ secrets.DOCKERHUB_USERNAME }}
-      DOCKERHUB_TOKEN: ${{ secrets.DOCKERHUB_TOKEN }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -138,13 +117,6 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Login to Docker Hub
-        uses: docker/login-action@v3
-        if: ${{ env.DOCKERHUB_USERNAME != '' && env.DOCKERHUB_TOKEN != '' }}
-        with:
-          username: ${{ env.DOCKERHUB_USERNAME }}
-          password: ${{ env.DOCKERHUB_TOKEN }}
-
       - name: Extract metadata
         id: meta
         uses: docker/metadata-action@v5
@@ -159,17 +131,10 @@ jobs:
         id: tags
         run: |
           VER=$(node -p "require('./package.json').version")
-          REPO="${{ github.event.repository.name }}"
           {
             echo "ghcr.io/${{ github.repository }}:$VER"
             echo "ghcr.io/${{ github.repository }}:latest"
             echo "${{ steps.meta.outputs.tags }}"
-            if [ -n "$DOCKERHUB_USERNAME" ]; then
-              echo "docker.io/$DOCKERHUB_USERNAME/$REPO:$VER"
-              echo "docker.io/$DOCKERHUB_USERNAME/$REPO:latest"
-              echo "docker.io/$DOCKERHUB_USERNAME/$REPO:${{ github.ref_name }}"
-              echo "docker.io/$DOCKERHUB_USERNAME/$REPO:sha-${{ github.sha }}"
-            fi
           } | grep -v '^$' > tags.txt
           echo "list<<EOF" >> $GITHUB_OUTPUT
           cat tags.txt >> $GITHUB_OUTPUT
