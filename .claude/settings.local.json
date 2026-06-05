@@ -67,7 +67,8 @@
       "Bash(node-gyp rebuild *)",
       "Bash(kill 39736)",
       "Bash(pnpm remove *)",
-      "Bash(git rm *)"
+      "Bash(git rm *)",
+      "Bash(xargs kill)"
     ]
   }
 }
