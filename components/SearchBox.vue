@@ -207,26 +207,10 @@ onBeforeUnmount(() => {
   position: relative;
 }
 
-.search-box::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--primary), var(--secondary));
-  opacity: 0;
-  transition: opacity var(--transition-normal);
-}
-
 .search-box.focused {
   border-color: var(--primary);
   box-shadow: 0 10px 26px rgba(15, 118, 110, 0.14);
   transform: translateY(-2px);
-}
-
-.search-box.focused::before {
-  opacity: 1;
 }
 
 .search-box.loading {
