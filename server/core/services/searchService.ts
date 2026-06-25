@@ -222,7 +222,7 @@ export class SearchService {
     );
     const concurrency = Math.max(
       2,
-      Math.min(concurrencyOverride ?? this.options.defaultConcurrency, 12)
+      Math.min(concurrencyOverride ?? this.options.defaultConcurrency, 5)
     );
 
     const prioritySet = new Set(priorityChannels || []);
