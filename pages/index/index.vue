@@ -44,8 +44,13 @@
     <!-- 链接检测助手安装提示（页面加载即显示，直到用户主动关闭） -->
     <div v-if="showCheckerTip" class="checker-tip">
       <span class="checker-tip__icon">💡</span>
-      <span class="checker-tip__text">安装<strong>链接检测助手</strong>油猴脚本，自动标记失效链接</span>
-      <a href="/panhub-link-checker.user.js" class="checker-tip__btn">一键安装</a>
+      <span class="checker-tip__text">
+        安装<strong>链接检测助手</strong>，自动标记失效链接
+        <span class="checker-tip__hint">
+          需要先安装 <a href="https://www.tampermonkey.net/" target="_blank" rel="noopener">Tampermonkey 扩展</a>
+        </span>
+      </span>
+      <a href="/panhub-link-checker.user.js" class="checker-tip__btn">安装脚本</a>
       <button class="checker-tip__close" @click="dismissCheckerTip" aria-label="关闭">✕</button>
     </div>
 
@@ -1084,6 +1089,20 @@ function visibleSorted(items: any[]) {
 }
 .checker-tip__text strong {
   color: var(--primary, #0f766e);
+}
+.checker-tip__hint {
+  display: block;
+  font-size: 12px;
+  color: var(--text-tertiary, #9ca3af);
+  margin-top: 2px;
+}
+.checker-tip__hint a {
+  color: var(--primary, #0f766e);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.checker-tip__hint a:hover {
+  opacity: 0.8;
 }
 .checker-tip__btn {
   flex-shrink: 0;
