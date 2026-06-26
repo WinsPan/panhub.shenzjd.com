@@ -36,6 +36,8 @@
 // @compatible   edge Tampermonkey / Violentmonkey
 // @run-at       document-idle
 // @icon         https://panhub.shenzjd.com/favicon.ico
+// @downloadURL  https://panhub.shenzjd.com/panhub-link-checker.user.js
+// @updateURL    https://panhub.shenzjd.com/panhub-link-checker.user.js
 // ==/UserScript==
 
 (function () {
@@ -487,6 +489,7 @@
   // 暴露给 PanHub 页面（供未来集成使用）
   if (typeof unsafeWindow !== "undefined") {
     unsafeWindow.__panhub_linkCheckerReady = true;
+    unsafeWindow.__panhub_linkCheckerVersion = "2.0.0";
     unsafeWindow.__panhub_checkLink = async function (url) {
       const checker = PLATFORM_CHECKERS.find((c) => c.match(url));
       if (!checker) return { state: 0, platform: "unknown" };
